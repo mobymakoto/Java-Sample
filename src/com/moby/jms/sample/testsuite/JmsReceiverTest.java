@@ -2,22 +2,20 @@ package com.moby.jms.sample.testsuite;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
 import org.junit.Test;
 
 import com.moby.jms.sample.JMSConnectorException;
-import com.moby.jms.sample.JmsSender;
+import com.moby.jms.sample.JmsReceiver;
 
-public class JmsSenderTest {
+public class JmsReceiverTest {
 
     @Test
     public void testBuildForQueue() {
         try {
-            assertNotNull(JmsSender.buildForQueue());
+            assertNotNull(JmsReceiver.buildForQueue());
         } catch (JMSConnectorException e) {
             e.printStackTrace();
         }
@@ -26,27 +24,25 @@ public class JmsSenderTest {
     @Test
     public void testBuildForTopic() {
         try {
-            assertNotNull(JmsSender.buildForTopic());
+            assertNotNull(JmsReceiver.buildForTopic());
         } catch (JMSConnectorException e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void testSendString() {
-            try {
-                JmsSender.buildForQueue().send("Testing message by Q...");
-            } catch (JMSException | NamingException | JMSConnectorException e) {
-                e.printStackTrace();
-            }
+    public void testReceiveString() {
+        try {
+            System.out.println(" Received : " + JmsReceiver.buildForQueue().receiveString());
+        } catch (JMSException | NamingException | JMSConnectorException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void testSendSerializable() {
-        ArrayList<Integer> list = new  ArrayList<>();
-        list.add(100);
+    public void testReceiveObject() {
         try {
-            JmsSender.buildForTopic().send(list);
+            System.out.println(" Received : " + JmsReceiver.buildForTopic().receiveObject());
         } catch (JMSException | NamingException | JMSConnectorException e) {
             e.printStackTrace();
         }
