@@ -1,5 +1,7 @@
 package com.moby.jms.sample;
 
+import java.util.ArrayList;
+
 
 public class NewPublisher {
 
@@ -8,7 +10,10 @@ public class NewPublisher {
     public static void main(String[] args)  {
         try {
             JmsSender sender = JmsSender.buildForTopic();
-            sender.send("Say Hello!!!!");
+            ArrayList<String> list = new ArrayList<>();
+            list.add("I am Object......");
+            sender.send(list);
+            //sender.send("Say Hello!!!!");
             sender.close();
         } catch(Exception e) {
            e.printStackTrace();
