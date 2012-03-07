@@ -37,7 +37,7 @@ public class JmsReceiver {
     }
 
      private Message receive() throws JMSException, NamingException {
-         return  connector.getMessageConsumger().receive();
+         return  connector.getMessageConsumer().receive();
      }
 
 }

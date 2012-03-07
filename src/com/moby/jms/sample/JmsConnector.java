@@ -44,7 +44,7 @@ public class JmsConnector {
         return session.createProducer(dist);
      }
 
-     protected MessageConsumer getMessageConsumger() throws JMSException {
+     protected MessageConsumer getMessageConsumer() throws JMSException {
          return session.createConsumer(dist);
      }
 
@@ -65,7 +65,7 @@ public class JmsConnector {
             session = connection.createSession(false,  Session.AUTO_ACKNOWLEDGE);
             dist = (Destination)context.lookup(paramRepository.getSubscribe());
         } catch(Exception e) {
-            throw new JMSConnectorException(e); 
+            throw new JMSConnectorException(e);
         }
     }
 
