@@ -4,8 +4,12 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import javax.jms.JMSException;
+import javax.naming.NamingException;
+
 import org.junit.Test;
 
+import com.moby.jms.sample.JMSConnectorException;
 import com.moby.jms.sample.JmsSender;
 
 public class JmsSenderTest {
@@ -14,7 +18,7 @@ public class JmsSenderTest {
     public void testBuildForQueue() {
         try {
             assertNotNull(JmsSender.buildForQueue());
-        } catch(Exception e) {
+        } catch (JMSConnectorException e) {
             e.printStackTrace();
         }
     }
@@ -23,29 +27,29 @@ public class JmsSenderTest {
     public void testBuildForTopic() {
         try {
             assertNotNull(JmsSender.buildForTopic());
-        } catch(Exception e) {
+        } catch (JMSConnectorException e) {
             e.printStackTrace();
         }
     }
 
     @Test
     public void testSendString() {
-        try {
-            JmsSender.buildForQueue().send("TEST : Send");
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+            try {
+                JmsSender.buildForTopic().send("Testing message by Q...");
+            } catch (JMSException | NamingException | JMSConnectorException e) {
+                e.printStackTrace();
+            }
     }
 
     @Test
     public void testSendSerializable() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("MAKOTO NAKAJIMA");
+        ArrayList<Integer> list = new  ArrayList<>();
+        list.add(100);
         try {
             JmsSender.buildForTopic().send(list);
-        } catch(Exception e) {
+        } catch (JMSException | NamingException | JMSConnectorException e) {
             e.printStackTrace();
-        }
+        } 
     }
 
 }
