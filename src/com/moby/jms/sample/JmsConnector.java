@@ -14,8 +14,6 @@ import javax.naming.InitialContext;
 
 public class JmsConnector {
 
-     private Hashtable<String, String> properties = new Hashtable<>();
-
      // Q: QueueConnectionFactory,  T: TopicConnectionFactory
      private ConnectionFactory factory = null;
      // Q: QueueConnection,  T: TopicConnection
@@ -56,6 +54,7 @@ public class JmsConnector {
 
     private void ready() throws JMSConnectorException {
         try {
+           Hashtable<String, String> properties = new Hashtable<>();
             properties.put(Context.INITIAL_CONTEXT_FACTORY,  paramRepository.getFactoryName());
             properties.put(Context.PROVIDER_URL, paramRepository.getProviderUrl());
             Context context = new InitialContext(properties);
