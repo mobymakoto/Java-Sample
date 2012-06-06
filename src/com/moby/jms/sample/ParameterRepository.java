@@ -37,6 +37,10 @@ public class ParameterRepository {
    }
 
    private void composite(String subscribe) throws  JMSConnectorException {
+       if ((subscribe != SUBSCRIBE_QUEUE) && (subscribe != SUBSCRIBE_TOPIC))
+           throw new JMSConnectorException(
+               new IllegalArgumentException("Invalid argument : " + subscribe));
+               
        ParameterLoader loader = new ParameterLoader();
        factoryName = loader.getFactoryName();
        providerUrl = loader.getProviderUrl();
@@ -49,9 +53,6 @@ public class ParameterRepository {
            connectionFactory = loader.getTopicConnectionFactory();
            this.subscribe = loader.getTopicName();
            break;
-        default:
-            throw new JMSConnectorException(
-                    new IllegalArgumentException("Invalid argument : " + subscribe));
        }
    }
 
